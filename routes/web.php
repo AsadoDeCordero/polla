@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/grupos', function () {
+    return view('panel.grupos');
+});
+
 Route::get('/hola', function () {
     return "hola cotito";
     return view('welcome');
