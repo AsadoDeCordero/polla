@@ -10,15 +10,69 @@ use Hash;
 use \App\Models\User;
 use Mail;
 use Crypt;
+use Auth;
+use Session;
 
 class PollaController extends Controller
 {
 
     public function token(){ return csrf_token(); }
+    public function logout(){ Auth::logout(); }
+
+    public function get_partidos(){
+
+        if (!Auth::check())
+            return response()->json(['data' => 'Usuario no esta logueado', 'ok'=>false]);
+
+        $polla_id = Session::get('polla_id');
+        $num_pollas = DB::table('polla_user')->where('user_id', Auth::user()->id)->count();
+
+        if($num_pollas == 0){
+
+            return response()->json(['mensaje' => 'No existen partidos', 'data' => '','ok'=>false]);
+
+        }else{
+
+            $pollas = DB::table('polla_user')->where('user_id', Auth::user()->id)->where('polla_id', $polla_id)->get();
+
+            foreach($pollas as $aux){
+
+                $torneo_id = DB::table('pollas')->where('id', $aux->polla_id)->value('torneo_id');
+                $partidos = DB::table('partidos')->where('torneo_id', $torneo_id)->get();
+
+                $aux->partidos = $partidos;
+
+            }
+
+            return response()->json(['mensaje' => 'Existen partidos', 'data' => $pollas,'ok'=>false]);
+        }
+
+    }
 
     public function login(Request $request){
 
-        return $request->codigo;
+        $existe_codigo = DB::table('polla_user')->where('codigouser', $request->codigo)->count();
+        
+        if($existe_codigo == 0)
+            return response()->json(['data' => 'No existe el codigo', 'ok'=>false]);
+
+        $codigo = $this->desencriptar($request->codigo);
+
+        //return $codigo;
+
+        $porciones = explode(".", $codigo);
+        
+        $polla_id = $porciones[0];
+        $user_id = $porciones[1];
+
+        //$value = Session::get('jefe');
+
+        $request->session()->put('polla_id', $polla_id);
+
+        Auth::loginUsingId($user_id);
+
+        return view('panel.grupos');
+
 
     }
 
@@ -156,10 +210,17 @@ class PollaController extends Controller
         //OJO, LOS CORREOS VAN COMO ARRAY
         $correo = DB::table('users')->where('id', $user_id)->value('email');
 
+        $codigo = $this->desencriptar($codigo_cryp);
+
+        $porciones = explode(".", $codigo);
+        
+        $polla_id = $porciones[0];
+        $user_id = $porciones[1];
+
         $array = array();
         $array[] = array(   'nombre' => DB::table('users')->where('id', $user_id)->value('nombre'),
                             'codigo' => $codigo_cryp,
-                            'nombre_polla' =>  DB::table('pollas')->where('id', DB::table('polla_user')->where('user_id', $user_id)->value('polla_id'))->value('nombre'),
+                            'nombre_polla' =>  DB::table('pollas')->where('id', $polla_id)->value('nombre'),
                             'texto' => 'ESTE ES UN TEXTO DE PRUEBA DE ENVÌO DEL CORREO',
                             'link' => url('/acceso123'),
         );
