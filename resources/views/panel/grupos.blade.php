@@ -1,79 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="zxx">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> {{config('app.name')}}</title>
+        <!-- favicon -->
+        <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <!-- fontawesome icon  -->
+        <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+        <!-- flaticon css -->
+        <link rel="stylesheet" href="assets/fonts/flaticon.css">
+        <!-- animate.css -->
+        <link rel="stylesheet" href="assets/css/animate.css">
+        <!-- Owl Carousel -->
+        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+        <!-- magnific popup -->
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="assets/css/odometer.min.css">
+        <!-- stylesheet -->
+        <link rel="stylesheet" href="assets/css/style.css">
+        <!-- responsive -->
+        <link rel="stylesheet" href="assets/css/responsive.css">
+        <link rel="stylesheet" href="assets/css/latest-result-responsive.css">
+        <style type="text/css">
+        	.logo {
+						  filter: invert(1);
+						}
+        </style>
+    </head>
 
-    <title>Bootstrap 4, from LayoutIt!</title>
+    <body>        
+        <!-- header begin -->
+        <div class="header">
+            <div id="navbar" class="header-bottom" style="position: static!important;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 d-xl-flex d-lg-flex d-block align-items-center">
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-6 d-xl-block d-lg-block d-flex align-items-center">
+                                    <div class="logo">
+                                        <a href="{{url('/')}}">
+                                            <img class="logo" src="favicon.svg" alt="logo" style="height: 35px;">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-6 d-xl-none d-lg-none d-block">
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        <i class="fas fa-bars"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-9">
+                            <div class="mainmenu">
+                                <nav class="navbar navbar-expand-lg">
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <ul class="navbar-nav ml-auto">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="about.html">Apuestas</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="statics.html">Resultados</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="promotions.html">Tabla de posiciones</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="contact.html">Salir</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                  </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header end -->
 
-    <meta name="description" content="Source code generated using layoutit.com">
-    <meta name="author" content="LayoutIt!">
+        <!-- breadcrumb begin -->
+        <div class="breadcrumb-bettix latest-result-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-7 col-lg-7">
+                        <div class="breadcrumb-content">
+                            <h2>Apuestas</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb end -->
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+        <!-- latest result begin -->
+        <div class="latest-result">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="single-match">
+                            <div class="part-head">
+                                <h5 class="match-title">BBPL 2019 Semi Final</h5>
+                                <span class="match-venue">Venue : Sher-e-Bangla National Stadium. Mirpur, Dhaka</span>
+                            </div>
+                            <div class="part-team">
+                                <div class="single-team">
+                                    <div class="logo">
+                                        <img src="assets/img/team-1.png" alt="">
+                                    </div>
+                                    <span class="team-name">Khulna Tigers</span>
+                                </div>
+                                <div class="match-details">
+                                    <div class="match-time">
+                                        <span class="date">Fri 09 Oct 2019 || 09:00 am</span>
+                                    </div>
+                                    <div class="goal">
+                                        <ul>
+                                            <li>2</li>
+                                            <li>3</li>
+                                        </ul>
+                                        <span class="text">full time</span>
+                                    </div>
+                                </div>
+                                <div class="single-team win-team">
+                                    <div class="logo">
+                                        <span class="win">win</span>
+                                        <img src="assets/img/team-2.png" alt="">
+                                    </div>
+                                    <span class="team-name">Dhaka Platoon</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="single-match">
+                            <div class="part-head">
+                                <h5 class="match-title">BBPL 2019 Semi Final</h5>
+                                <span class="match-venue">Venue : Sher-e-Bangla National Stadium. Mirpur, Dhaka</span>
+                            </div>
+                            <div class="part-team">
+                                <div class="single-team win-team">
+                                    <div class="logo">
+                                        <span class="win">win</span>
+                                        <img src="assets/img/team-3.png" alt="">
+                                    </div>
+                                    <span class="team-name">Khulna Tigers</span>
+                                </div>
+                                <div class="match-details">
+                                    <div class="match-time">
+                                        <span class="date">Fri 09 Oct 2019 || 09:00 am</span>
+                                    </div>
+                                    <div class="goal">
+                                        <ul>
+                                            <li>2</li>
+                                            <li>3</li>
+                                        </ul>
+                                        <span class="text">full time</span>
+                                    </div>
+                                </div>
+                                <div class="single-team">
+                                    <div class="logo">
+                                        <img src="assets/img/team-4.png" alt="">
+                                    </div>
+                                    <span class="team-name">Dhaka Platoon</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- latest result end -->
 
-  </head>
-  <body>
-
-    <div class="container-fluid">
-	<div class="row" style="background: #e1e1e1;border-bottom: 2px #dbdbdb solid;">
-		<div class="col-md-12">
-			<ul class="nav nav-pills">
-				<li class="nav-item">
-					<a class="nav-link active" href="#">Mis Apuestas</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Resultados</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Tabla de posiciones</a>
-				</li>
-				<li class="nav-item dropdown ml-md-auto">
-					 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">Nombre</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-						 <a class="dropdown-item" href="#">Salir</a>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="row" style="margin-top: 20px;">
-		<div class="col-md-6">
-			Group A. Qatar, Ecuador, Senegal and Netherlands.
-		</div>
-		<div class="col-md-6">
-			Group B B. England, IR Iran, USA and Wales.
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-6">
-			Group C C. Argentina, Saudi Arabia, Mexico, Poland.
-		</div>
-		<div class="col-md-6">
-			Group D D. France, Australia, Denmark and Tunisia.
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-6">
-			Group E E. Spain, Costa Rica, Germany and Japan.
-		</div>
-		<div class="col-md-6">
-			Group F F. Belgium, Canada, Morocco, Croatia. 		
-	  </div>
-	</div>
-	<div class="row">
-		<div class="col-md-6">
-			Group G G. Brazil, Serbia, Switzerland  and Cameroon .
-		</div>
-		<div class="col-md-6">
-			Group H H. Portugal , Ghana , Uruguay , Korea Republic. 		
-	  </div>
-	</div>
-</div>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-  </body>
+        <!-- notes begin -->
+        <div class="notes">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-10 col-lg-10">
+                        {{config('app.name')}} tiene todos los derechos reservados y la wea.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- notes end -->
+        
+        <!-- jquery -->
+        <!-- <script src="assets/js/jquery.js"></script> -->
+        <script src="assets/js/jquery-3.4.1.min.js"></script>
+        <!-- bootstrap -->
+        <script src="assets/js/bootstrap.min.js"></script>
+        <!-- owl carousel -->
+        <script src="assets/js/owl.carousel.js"></script>
+        <!-- magnific popup -->
+        <script src="assets/js/jquery.magnific-popup.js"></script>
+        <!-- filterizr js -->
+        <script src="assets/js/jquery.filterizr.min.js"></script>
+        <!-- wow js-->
+        <script src="assets/js/wow.min.js"></script>
+        <!-- clock js -->
+        <script src="assets/js/clock.min.js"></script>
+        <script src="assets/js/jquery.appear.min.js"></script>
+        <script src="assets/js/odometer.min.js"></script>
+        <!-- main -->
+        <script src="assets/js/main.js"></script>
+    </body>
 </html>
