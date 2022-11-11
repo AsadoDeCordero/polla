@@ -21,7 +21,9 @@ Route::get('/grupos', function () {
     return view('panel.grupos');
 });
 
-Route::get('/hola', function () {
-    return "hola cotito";
-    return view('welcome');
-});
+Route::get('/token','App\Http\Controllers\PollaController@token');
+
+Route::post('/crear_usuario','App\Http\Controllers\PollaController@crear_usuario');
+Route::post('/crear_usuario_polla/{codigo}','App\Http\Controllers\PollaController@crear_usuario_polla');
+
+Route::post('/login','App\Http\Controllers\PollaController@login');
