@@ -222,7 +222,7 @@ class PollaController extends Controller
                             'codigo' => $codigo_cryp,
                             'nombre_polla' =>  DB::table('pollas')->where('id', $polla_id)->value('nombre'),
                             'texto' => 'ESTE ES UN TEXTO DE PRUEBA DE ENVÌO DEL CORREO',
-                            'link' => url('/acceso123'),
+                            'link' => url('/'),
         );
 
         $subject = 'Bienvenido a la Polla!!!';
@@ -240,7 +240,6 @@ class PollaController extends Controller
             });
 
         return "OK";
-
 
     }
 
