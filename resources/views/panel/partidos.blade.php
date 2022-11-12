@@ -270,11 +270,11 @@
                      data: {partido_id : id, reslocal:reslocal, resvisita:resvisita, _token:token},
                      success: function(agente) {
                     if(agente.ok){
-                        alert("Apuesta ingresada");
+                        alert(agente.mensaje);
                         $("#boton_"+id).text("Modificar pronóstico");
                         $('#boton_'+id).removeClass('btn-warning').removeClass('btn-success').addClass('btn-warning');
                       } else {
-                        alert("Error de apuesta")
+                        alert(agente.mensaje)
                       }
                     }, 
                     error: function(XMLHttpRequest, textStatus, errorThrown) { 
