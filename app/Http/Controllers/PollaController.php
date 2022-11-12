@@ -53,12 +53,12 @@ class PollaController extends Controller
 
         $validator = Validator::make($request->all(), [
             'partido_id'  => 'required|exists:partidos,id',
-            'res_local'  => 'required|numeric',
-            'res_visita'  => 'required|numeric',
+            'reslocal'  => 'required|numeric',
+            'resvisita'  => 'required|numeric',
         ],$messages = [
             'partido_id.required' => 'El partido id es requerido',
-            'res_local.required' => 'El resultado del local es requerido',
-            'res_visita.required' => 'El resultado de la visita es requerido',
+            'reslocal.required' => 'El resultado del local es requerido',
+            'resvisita.required' => 'El resultado de la visita es requerido',
         ]);
 
         if ($validator->fails()) {
@@ -92,8 +92,8 @@ class PollaController extends Controller
 
                 DB::table('pronosticos')
                         ->where('id', $pronostico[0]->id)
-                        ->update(array(     'res_local'=> $request->res_local,
-                                            'res_visita'=> $request->res_visita,
+                        ->update(array(     'res_local'=> $request->reslocal,
+                                            'res_visita'=> $request->resvisita,
                                         )
                         );
 
@@ -102,8 +102,8 @@ class PollaController extends Controller
                 DB::table('pronosticos')->insert(
                   array(    'partido_id' => $request->partido_id,
                             'user_id' => Auth::user()->id, 
-                            'res_local'=> $request->res_local,
-                            'res_visita'=> $request->res_visita,
+                            'res_local'=> $request->reslocal,
+                            'res_visita'=> $request->resvisita,
                             'polla_id'=> Session::get('polla_id')
                         )
                   );
