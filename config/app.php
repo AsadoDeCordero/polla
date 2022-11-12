@@ -67,7 +67,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Santiago Chile',
+    //'timezone' => 'UTC,
 
     /*
     |--------------------------------------------------------------------------

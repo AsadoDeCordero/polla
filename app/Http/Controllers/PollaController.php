@@ -49,7 +49,7 @@ class PollaController extends Controller
     public function pronostico(Request $request){
 
         if (!Auth::check())
-            return response()->json(['data' => 'Usuario no esta logueado', 'ok'=>false, 'mensaje' => 'hola cotito']);
+            return response()->json(['data' => 'Usuario no esta logueado', 'ok'=>false, 'mensaje' => 'No ha iniciado sesión']);
 
         $validator = Validator::make($request->all(), [
             'partido_id'  => 'required|exists:partidos,id',
@@ -62,19 +62,36 @@ class PollaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['data' => $validator->errors(),'ok'=>false, 'mensaje' => 'Hola cotito']);
+            return response()->json(['data' => $validator->errors(),'ok'=>false, 'mensaje' => 'Error de validación']);
             return back()->withErrors($validator)->withInput();
         }
 
         if(DB::table('pollas')->where('id', Session::get('polla_id'))->count() == 0)
-            return response()->json(['data' => 'Falta el id de la polla', 'ok'=>false, 'mensaje' => 'hola cotito']);
+            return response()->json(['data' => 'Falta el id de la polla', 'ok'=>false, 'mensaje' => 'La polla no existe']);
+
+
+
 
         //VALIDAR QUE FALTEN MAS DE 5' PARA ENVIAR EL PRONOSTICO
-            /*$fecha_partido = DB::table('partidos')->where('id', $request->partido_id)->value('fecha_completa');
+            $fecha_partido = DB::table('partidos')->where('id', $request->partido_id)->value('fecha_completa');
             $fecha_now = date('Y-m-d H:i:s'); 
 
-            echo $fecha_partido.' '.$fecha_now;
+            $differenceInSeconds = strtotime($fecha_partido) - strtotime($fecha_now);
 
+            //echo $differenceInSeconds; 
+
+            if($differenceInSeconds <= 300 ){ //QUEDAN MENOS DE 5' PARA QUE EMPIECE EL PARTIDO
+
+                if($differenceInSeconds <= 0)
+                    $mje = "El partido ya comenzó,";
+                else
+                    $mje = 'El partido esta a menos de 5\' ( '.$differenceInSeconds.' segundos ) de empezar,';
+
+                return response()->json(['data' => $validator->errors(),'ok'=>false, 'mensaje' => $mje.' ya no puede ingresar este pronostico']);
+
+            }
+
+            /*
             $fecha1 = date_create($fecha_partido);
             $fecha2 = date_create($fecha_now);
 
@@ -85,7 +102,8 @@ class PollaController extends Controller
 
             return $minutos;
 
-            return $paso_el_partido;*/
+            return $paso_el_partido;
+            */
             
 
         DB::beginTransaction();
@@ -121,14 +139,14 @@ class PollaController extends Controller
             }
 
             DB::commit();
-            return response()->json(['data' => 'Pronostico enviado con exito','ok'=>true, 'mensaje' => 'hola cotito']);
+            return response()->json(['data' => 'Pronostico enviado con exito','ok'=>true, 'mensaje' => 'Pronóstico enviado con éxito']);
             //return back()->with('success','Usuario creado con éxito');
 
         } catch (Throwable $e) {
 
             report($e);
             DB::rollback();
-            return response()->json(['data' => ''.$e,'ok'=>false, 'mensaje' => 'hola cotito']);
+            return response()->json(['data' => ''.$e,'ok'=>false, 'mensaje' => 'Ha ocurrido un error inesperado, intente nuevamente más tarde']);
 
         }
 
@@ -159,9 +177,23 @@ class PollaController extends Controller
                                 ->join('equipos as local', 'local.id', '=', 'partidos.local_id')
                                 ->join('equipos as visita', 'visita.id', '=', 'partidos.visita_id')
                                 ->join('estadopartidos', 'estadopartidos.id', '=', 'partidos.estadopartido_id')
+                                ->join('tipopartidos', 'tipopartidos.id', '=', 'partidos.tipopartido_id')
+                                ->join('tipofinal', 'tipofinal.id', '=', 'partidos.tipofinal_id')
+                                ->join('torneo_equipo as torneoequipolocal', function ($join) {
+                                            $join->on('torneoequipolocal.equipo_id', '=', 'local.id')
+                                                 ->on('torneoequipolocal.torneo_id', '=', 'partidos.torneo_id');
+                                        })
+                                ->join('torneo_equipo as torneoequipovisita', function ($join) {
+                                            $join->on('torneoequipovisita.equipo_id', '=', 'visita.id')
+                                                 ->on('torneoequipovisita.torneo_id', '=', 'partidos.torneo_id');
+                                        })
                                 ->where('partidos.torneo_id', $torneo_id)
                                 ->select('local.nombre as local', 'visita.nombre as visita', 'partidos.id as partido_id', 'local.id as local_id', 'visita.id as visita_id', 'partidos.fecha', 'partidos.hora', 'partidos.fecha_completa',
-                                          'local.logo as logo_local', 'visita.logo as logo_visita', 'partidos.res_local', 'partidos.res_visita', db::raw('"titulo" as titulo'), 'estadopartidos.estado' )
+                                          'local.logo as logo_local', 'visita.logo as logo_visita', 'partidos.res_local', 'partidos.res_visita', 'estadopartidos.estado',
+                                            'torneoequipolocal.grupo as grupo_local', 'torneoequipovisita.grupo as grupo_visita', 'partidos.tipopartido_id', 'tipopartidos.tipo as tipo_partido', 'partidos.estadopartido_id', 
+                                            'partidos.tipofinal_id',  'partidos.res_local_penales', 'partidos.res_visita_penales', 'tipofinal.tipo_final', 
+                                            db::raw('CASE WHEN partidos.tipopartido_id = 1 then CONCAT(tipopartidos.tipo, " - GRUPO ", torneoequipolocal.grupo) else tipopartidos.tipo end as titulo')
+                                        )
                                 ->get();
 
                 foreach($partidos as $aux2){
