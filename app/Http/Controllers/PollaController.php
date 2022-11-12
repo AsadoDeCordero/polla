@@ -69,9 +69,10 @@ class PollaController extends Controller
                 $partidos = DB::table('partidos')
                                 ->join('equipos as local', 'local.id', '=', 'partidos.local_id')
                                 ->join('equipos as visita', 'visita.id', '=', 'partidos.visita_id')
+                                ->join('estadopartidos', 'estadopartidos.id', '=', 'partidos.estadopartido_id')
                                 ->where('partidos.torneo_id', $torneo_id)
                                 ->select('local.nombre as local', 'visita.nombre as visita', 'partidos.id as partido_id', 'local.id as local_id', 'visita.id as visita_id', 'partidos.fecha', 'partidos.hora', 'partidos.fecha_completa',
-                                          'local.logo as logo_local', 'visita.logo as logo_visita', 'partidos.res_local', 'partidos.res_visita', db::raw('"titulo" as titulo') )
+                                          'local.logo as logo_local', 'visita.logo as logo_visita', 'partidos.res_local', 'partidos.res_visita', db::raw('"titulo" as titulo'), 'estadopartidos.estado' )
                                 ->get();
 
                 $aux->partidos = $partidos;
