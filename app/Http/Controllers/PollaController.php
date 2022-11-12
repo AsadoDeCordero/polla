@@ -121,7 +121,7 @@ class PollaController extends Controller
             }
 
             DB::commit();
-            return response()->json(['data' => 'Pronostico enviado con exito','ok'=>true, 'mansaje' => 'hola cotito']);
+            return response()->json(['data' => 'Pronostico enviado con exito','ok'=>true, 'mensaje' => 'hola cotito']);
             //return back()->with('success','Usuario creado con éxito');
 
         } catch (Throwable $e) {
