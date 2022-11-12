@@ -65,7 +65,14 @@ class PollaController extends Controller
             foreach($pollas as $aux){
 
                 $torneo_id = DB::table('pollas')->where('id', $aux->polla_id)->value('torneo_id');
-                $partidos = DB::table('partidos')->where('torneo_id', $torneo_id)->get();
+
+                $partidos = DB::table('partidos')
+                                ->join('equipos as local', 'local.id', '=', 'partidos.local_id')
+                                ->join('equipos as visita', 'visita.id', '=', 'partidos.visita_id')
+                                ->where('partidos.torneo_id', $torneo_id)
+                                ->select('local.nombre as local', 'visita.nombre as visita', 'partidos.id as partido_id', 'local.id as local_id', 'visita.id as visita_id', 'partidos.fecha', 'partidos.hora', 'partidos.fecha_completa',
+                                          'local.logo as logo_local', 'visita.logo as logo_visita', 'partidos.res_local', 'partidos.res_visita' )
+                                ->get();
 
                 $aux->partidos = $partidos;
 
