@@ -70,7 +70,7 @@ class PollaController extends Controller
             return response()->json(['data' => 'Falta el id de la polla', 'ok'=>false]);
 
         //VALIDAR QUE FALTEN MAS DE 5' PARA ENVIAR EL PRONOSTICO
-            $fecha_partido = DB::table('partidos')->where('id', $request->partido_id)->value('fecha_completa');
+          /*  $fecha_partido = DB::table('partidos')->where('id', $request->partido_id)->value('fecha_completa');
             $fecha_now = date('Y-m-d H:i:s'); 
 
             echo $fecha_partido.' '.$fecha_now;
@@ -80,7 +80,7 @@ class PollaController extends Controller
 
             $dif = date_diff($fecha1, $fecha2);
             dd($dif);
-            $cantidad_dias = $dif->days +   1;
+            $cantidad_dias = $dif->days +   1;*/
             
 
         DB::beginTransaction();
