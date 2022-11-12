@@ -270,9 +270,10 @@
                      data: {partido_id : id, reslocal:reslocal, resvisita:resvisita, _token:token},
                      success: function(agente) {
                     if(agente.ok){
-                        alert(agente.mensaje);
                         $("#boton_"+id).text("Modificar pronóstico");
-                        $('#boton_'+id).removeClass('btn-warning').removeClass('btn-success').addClass('btn-warning');
+                        $('#boton_'+id).removeClass('btn-warning').removeClass('btn-success').css('background',"#28a745");
+                        window.setTimeout(function(){$('#boton_'+id).css('background','#ffc107').addClass("btn-warning")}, 500);
+                        
                       } else {
                         alert(agente.mensaje)
                       }
