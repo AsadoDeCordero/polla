@@ -262,11 +262,12 @@
             function enviar(id){
                 var reslocal = $("#res_local"+id).val();
                 var resvisita = $("#res_visita"+id).val();
+                var token = "{{csrf_token()}}";
 
                 $.ajax({
                      type: "POST",
                      url: "{{url('/')}}/pronostico",
-                     data: {partido_id : id, reslocal:reslocal, resvisita:resvisita},
+                     data: {partido_id : id, reslocal:reslocal, resvisita:resvisita, _token:token},
                      success: function(agente) {
                     if(agente.ok){
                         alert("Apuesta ingresada");
