@@ -15,10 +15,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-Route::get('/grupos', function () {
-    return view('panel.grupos');
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/apuestas', function () {
+        return view('panel.apuestas');
+    });
+    Route::get('/resultados', function () {
+        return view('panel.resultados');
+    });
+    Route::get('/tabla', function () {
+        return view('panel.tabla');
+    });
+     Route::get('/salir', function () {
+        Auth::logout();
+        return view('panel.tabla');
+    });
 });
 
 Route::get('/token','App\Http\Controllers\PollaController@token');
@@ -27,3 +39,9 @@ Route::post('/crear_usuario','App\Http\Controllers\PollaController@crear_usuario
 Route::post('/crear_usuario_polla/{codigo}','App\Http\Controllers\PollaController@crear_usuario_polla');
 
 Route::post('/login','App\Http\Controllers\PollaController@login');
+
+
+//BORRAR
+Route::get('/a', function () {
+        return view('panel.apuestas');
+    });
