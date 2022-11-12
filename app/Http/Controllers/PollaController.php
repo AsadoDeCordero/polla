@@ -154,6 +154,20 @@ class PollaController extends Controller
                                           'local.logo as logo_local', 'visita.logo as logo_visita', 'partidos.res_local', 'partidos.res_visita', db::raw('"titulo" as titulo'), 'estadopartidos.estado' )
                                 ->get();
 
+                foreach($partidos as $aux2){
+
+                    $pronostico = DB::table('pronosticos')
+                        ->where('user_id', Auth::user()->id)
+                        ->where('partido_id', $aux2->partido_id)
+                        ->where('polla_id', $polla_id)
+                        ->get();
+
+                    $aux2->pronostico = count($pronostico) > 0 ? 1 : 0 ;
+                    $aux2->res_local = count($pronostico) > 0 ? $pronostico[0]->res_local : 0;
+                    $aux2->res_visita = count($pronostico) > 0 ? $pronostico[0]->res_visita : 0;
+
+                }
+
                 $aux->partidos = $partidos;
 
             }
