@@ -40,6 +40,8 @@ Route::post('/crear_usuario_polla/{codigo}','App\Http\Controllers\PollaControlle
 
 Route::post('/login','App\Http\Controllers\PollaController@login');
 
+Route::get('/partidos','App\Http\Controllers\PollaController@get_partidos');
+Route::get('/logout','App\Http\Controllers\PollaController@logout');
 
 //BORRAR
 Route::get('/a', function () {
