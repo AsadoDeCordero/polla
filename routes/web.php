@@ -36,6 +36,8 @@ Route::get('/token','App\Http\Controllers\PollaController@token');
 Route::post('/crear_usuario','App\Http\Controllers\PollaController@crear_usuario');
 Route::post('/crear_usuario_polla/{codigo}','App\Http\Controllers\PollaController@crear_usuario_polla');
 
+Route::post('/pronostico','App\Http\Controllers\PollaController@pronostico');
+
 Route::post('/login','App\Http\Controllers\PollaController@login');
 
 Route::get('/partidos','App\Http\Controllers\PollaController@get_partidos');
