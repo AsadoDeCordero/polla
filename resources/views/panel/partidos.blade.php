@@ -203,13 +203,8 @@
                                     </div>
                                     <div class="goal">
                                         <ul>
-                                            @if($partido->pronostico==0)
-                                            <li><input type="text" class=" textoPrediccion form-control" id="res_local{{$partido->partido_id}}"></li>
-                                            <li><input type="text" class=" textoPrediccion form-control" id="res_visita{{$partido->partido_id}}"></li>
-                                            @else
-                                            <li>{{$partido->res_local}}</li>
-                                            <li>{{$partido->res_visita}}</li>
-                                            @endif
+                                            <li><input type="text" class=" textoPrediccion form-control" id="res_local{{$partido->partido_id}}" @if($partido->pronostico==1) value="{{$partido->res_local}}"@endif></li>
+                                            <li><input type="text" class=" textoPrediccion form-control" id="res_visita{{$partido->partido_id}}" @if($partido->pronostico==1) value="{{$partido->res_visita}}"@endif></li>
                                         </ul>
                                         <span class="text">{{$partido->estado}}</span>
                                     </div>
@@ -222,7 +217,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12" style="text-align:center;padding: 0px;">
-                                <a @if($partido->pronostico==0)onclick="enviar('{{$partido->partido_id}}')" @endif class="btn @if($partido->pronostico==1) btn-secondary disabled @else btn-success @endif" style="width:100%;color:white"> Enviar pronóstico</a>
+                                <a id="boton_{{$partido->partido_id}}" onclick="enviar('{{$partido->partido_id}}')" class="btn @if($partido->pronostico==1) btn-warning @else btn-success @endif" style="width:100%;color:white"> @if($partido->pronostico==1) Modificar pronóstico @else Enviar pronóstico @endif</a>
                             </div>
                         </div>
                     </div>
@@ -276,6 +271,8 @@
                      success: function(agente) {
                     if(agente.ok){
                         alert("Apuesta ingresada");
+                        $("#boton_"+id).text("Modificar pronóstico");
+                        $('#boton_'+id).removeClass('btn-warning').removeClass('btn-success').addClass('btn-warning');
                       } else {
                         alert("Error de apuesta")
                       }
