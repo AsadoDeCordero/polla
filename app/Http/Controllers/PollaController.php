@@ -46,6 +46,85 @@ class PollaController extends Controller
 
     }
 
+    public function pronostico(Request $request){
+
+        if (!Auth::check())
+            return response()->json(['data' => 'Usuario no esta logueado', 'ok'=>false]);
+
+        $validator = Validator::make($request->all(), [
+            'partido_id'  => 'required|exists:partidos,id',
+            'res_local'  => 'required|numeric',
+            'res_visita'  => 'required|numeric',
+        ],$messages = [
+            'partido_id.required' => 'El partido id es requerido',
+            'res_local.required' => 'El resultado del local es requerido',
+            'res_visita.required' => 'El resultado de la visita es requerido',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['data' => $validator->errors(),'ok'=>false]);
+            return back()->withErrors($validator)->withInput();
+        }
+
+        if(DB::table('pollas')->where('id', Session::get('polla_id'))->count() == 0)
+            return response()->json(['data' => 'Falta el id de la polla', 'ok'=>false]);
+
+        //VALIDAR QUE FALTEN MAS DE 5' PARA ENVIAR EL PRONOSTICO
+           /* $fecha_partido = DB::table('partidos')->where('id', $request->partido_id)->value('fecha_completa');
+            $fecha_now = date('Y-m-d H:i:s'); 
+
+            $dif = date_diff($fecha_partido, $fecha_now);
+            dd($dif);
+            $cantidad_dias = $dif->days +   1;
+            */
+
+        DB::beginTransaction();
+
+        try{
+
+            $pronostico = DB::table('pronosticos')
+                        ->where('user_id', Auth::user()->id)
+                        ->where('partido_id', $request->partido_id)
+                        ->where('polla_id', Session::get('polla_id'))
+                        ->get();
+
+            if(count($pronostico) > 0){ //EXISTE EL PRONOSTICO, UPDATEAR
+
+                DB::table('pronosticos')
+                        ->where('id', $pronostico[0]->id)
+                        ->update(array(     'res_local'=> $request->res_local,
+                                            'res_visita'=> $request->res_visita,
+                                        )
+                        );
+
+            }else{ //NO EXISTE EL PRONOSTICO, CREAR
+
+                DB::table('pronosticos')->insert(
+                  array(    'partido_id' => $request->partido_id,
+                            'user_id' => Auth::user()->id, 
+                            'res_local'=> $request->res_local,
+                            'res_visita'=> $request->res_visita,
+                            'polla_id'=> Session::get('polla_id')
+                        )
+                  );
+
+            }
+
+            DB::commit();
+            return response()->json(['data' => 'Pronostico enviado con exito','ok'=>true]);
+            //return back()->with('success','Usuario creado con éxito');
+
+        } catch (Throwable $e) {
+
+            report($e);
+            DB::rollback();
+            return response()->json(['data' => ''.$e,'ok'=>false]);
+
+        }
+
+
+    }
+
     public function get_partidos(){
 
         if (!Auth::check())
