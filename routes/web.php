@@ -40,7 +40,7 @@ Route::post('/pronostico','App\Http\Controllers\PollaController@pronostico');
 
 Route::post('/login','App\Http\Controllers\PollaController@login');
 
-Route::get('/partidos','App\Http\Controllers\PollaController@get_partidos');
+Route::get('/getpartidos','App\Http\Controllers\PollaController@get_partidos');
 Route::get('/logout','App\Http\Controllers\PollaController@logout');
 
 //BORRAR

@@ -203,8 +203,13 @@
                                     </div>
                                     <div class="goal">
                                         <ul>
+                                            @if($partido->pronostico==0)
                                             <li><input type="text" class=" textoPrediccion form-control" id="res_local{{$partido->partido_id}}"></li>
                                             <li><input type="text" class=" textoPrediccion form-control" id="res_visita{{$partido->partido_id}}"></li>
+                                            @else
+                                            <li>{{$partido->res_local}}</li>
+                                            <li>{{$partido->res_visita}}</li>
+                                            @endif
                                         </ul>
                                         <span class="text">{{$partido->estado}}</span>
                                     </div>
@@ -217,7 +222,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12" style="text-align:center;padding: 0px;">
-                                <a onclick="enviar('{{$partido->partido_id}}')" class="btn btn-success" style="width:100%;color:white">Enviar pronóstico</a>
+                                <a @if($partido->pronostico==0)onclick="enviar('{{$partido->partido_id}}')" @endif class="btn @if($partido->pronostico==1) btn-secondary disabled @else btn-success @endif" style="width:100%;color:white"> Enviar pronóstico</a>
                             </div>
                         </div>
                     </div>
