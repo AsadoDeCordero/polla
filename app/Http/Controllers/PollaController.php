@@ -19,6 +19,33 @@ class PollaController extends Controller
     public function token(){ return csrf_token(); }
     public function logout(){ Auth::logout(); }
 
+    public function home(){
+
+        if (!Auth::check()){ //NO ESTOY LOGUEADO
+
+            return view('welcome');
+
+        }else{
+
+            $polla_id = Session::get('polla_id');
+
+            if(DB::table('pollas')->where('id', Session::get('polla_id'))->count() == 0){
+
+                Auth::logout();
+                return view('welcome');
+
+            }else{
+
+                return view('panel.apuestas');
+
+            }
+
+        }
+
+         
+
+    }
+
     public function get_partidos(){
 
         if (!Auth::check())
@@ -71,8 +98,7 @@ class PollaController extends Controller
 
         Auth::loginUsingId($user_id);
 
-        return view('panel.grupos');
-
+        return view('panel.apuestas');
 
     }
 
