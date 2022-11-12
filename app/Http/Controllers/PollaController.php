@@ -49,7 +49,7 @@ class PollaController extends Controller
     public function pronostico(Request $request){
 
         if (!Auth::check())
-            return response()->json(['data' => 'Usuario no esta logueado', 'ok'=>false]);
+            return response()->json(['data' => 'Usuario no esta logueado', 'ok'=>false, 'mensaje' => 'hola cotito']);
 
         $validator = Validator::make($request->all(), [
             'partido_id'  => 'required|exists:partidos,id',
@@ -62,12 +62,12 @@ class PollaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['data' => $validator->errors(),'ok'=>false]);
+            return response()->json(['data' => $validator->errors(),'ok'=>false, 'mensaje' => 'Hola cotito']);
             return back()->withErrors($validator)->withInput();
         }
 
         if(DB::table('pollas')->where('id', Session::get('polla_id'))->count() == 0)
-            return response()->json(['data' => 'Falta el id de la polla', 'ok'=>false]);
+            return response()->json(['data' => 'Falta el id de la polla', 'ok'=>false, 'mensaje' => 'hola cotito']);
 
         //VALIDAR QUE FALTEN MAS DE 5' PARA ENVIAR EL PRONOSTICO
             /*$fecha_partido = DB::table('partidos')->where('id', $request->partido_id)->value('fecha_completa');
@@ -121,14 +121,14 @@ class PollaController extends Controller
             }
 
             DB::commit();
-            return response()->json(['data' => 'Pronostico enviado con exito','ok'=>true]);
+            return response()->json(['data' => 'Pronostico enviado con exito','ok'=>true, 'mansaje' => 'hola cotito']);
             //return back()->with('success','Usuario creado con éxito');
 
         } catch (Throwable $e) {
 
             report($e);
             DB::rollback();
-            return response()->json(['data' => ''.$e,'ok'=>false]);
+            return response()->json(['data' => ''.$e,'ok'=>false, 'mensaje' => 'hola cotito']);
 
         }
 
