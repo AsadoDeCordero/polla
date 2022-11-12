@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/','App\Http\Controllers\PollaController@home')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/apuestas', function () {
-        return view('panel.apuestas');
+    Route::get('/partidos', function () {
+        return view('panel.partidos');
     });
     Route::get('/resultados', function () {
         return view('panel.resultados');
@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
      Route::get('/salir', function () {
         Auth::logout();
-        return view('panel.tabla');
+        return redirect(route('home'));
     });
 });
 

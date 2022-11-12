@@ -1,3 +1,6 @@
+<?php 
+    $partidos = App\Http\Controllers\PollaController::get_partidos()[0]->partidos;
+?>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -28,8 +31,14 @@
         <link rel="stylesheet" href="assets/css/latest-result-responsive.css">
         <style type="text/css">
         	.logo {
-						  filter: invert(1);
-						}
+			  filter: invert(1);
+			}
+            .textoPrediccion{
+                color: black!important;
+                border: 0px!important;
+                height: 100%!important;
+                text-align: center;
+            }
         </style>
     </head>
 
@@ -61,7 +70,7 @@
                                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                         <ul class="navbar-nav ml-auto">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="about.html">Apuestas</a>
+                                                <a class="nav-link" href="about.html">Partidos</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="statics.html">Resultados</a>
@@ -70,7 +79,7 @@
                                                 <a class="nav-link" href="promotions.html">Tabla de posiciones</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="contact.html">Salir</a>
+                                                <a class="nav-link" href="{{url('/')}}/salir">Salir</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -89,7 +98,7 @@
                 <div class="row">
                     <div class="col-xl-7 col-lg-7">
                         <div class="breadcrumb-content">
-                            <h2>Apuestas</h2>
+                            <h2>Partidos</h2>
                         </div>
                     </div>
                 </div>
@@ -171,6 +180,42 @@
                             </div>
                         </div>
                     </div>
+                    @foreach($partidos as $partido)
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="single-match">
+                            <div class="part-head">
+                                <h5 class="match-title">{{$partido->local_id}}</h5>
+                            </div>
+                            <div class="part-team">
+                                <div class="single-team win-team">
+                                    <div class="logo">
+                                        <span class="win">win</span>
+                                        <img src="assets/img/team-3.png" alt="">
+                                    </div>
+                                    <span class="team-name">Khulna Tigers</span>
+                                </div>
+                                <div class="match-details">
+                                    <div class="match-time">
+                                        <span class="date">{{$partido->fecha_completa}}</span>
+                                    </div>
+                                    <div class="goal">
+                                        <ul>
+                                            <li><input type="text" class=" textoPrediccion form-control" name="local"></li>
+                                            <li><input type="text" class=" textoPrediccion form-control" name="visita"></li>
+                                        </ul>
+                                        <span class="text">full time</span>
+                                    </div>
+                                </div>
+                                <div class="single-team">
+                                    <div class="logo">
+                                        <img src="assets/img/team-4.png" alt="">
+                                    </div>
+                                    <span class="team-name">Dhaka Platoon</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

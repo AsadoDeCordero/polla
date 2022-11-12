@@ -36,7 +36,7 @@ class PollaController extends Controller
 
             }else{
 
-                return view('panel.apuestas');
+                return view('panel.partidos');
 
             }
 
@@ -78,7 +78,7 @@ class PollaController extends Controller
 
             }
 
-            return response()->json(['mensaje' => 'Existen partidos', 'data' => $pollas,'ok'=>false]);
+            return $pollas;
         }
 
     }
@@ -105,7 +105,7 @@ class PollaController extends Controller
 
         Auth::loginUsingId($user_id);
 
-        return view('panel.apuestas');
+        return view('panel.partidos');
 
     }
 
