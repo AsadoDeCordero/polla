@@ -1,5 +1,6 @@
 <?php 
     $partidos = App\Http\Controllers\PollaController::get_partidos()[0]->partidos;
+    //dd($partidos);
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -30,14 +31,14 @@
         <link rel="stylesheet" href="assets/css/responsive.css">
         <link rel="stylesheet" href="assets/css/latest-result-responsive.css">
         <style type="text/css">
-        	.logo {
-			  filter: invert(1);
-			}
             .textoPrediccion{
                 color: black!important;
                 border: 0px!important;
                 height: 100%!important;
                 text-align: center;
+            }
+            .latest-result{
+                padding: 55px 0!important;
             }
         </style>
     </head>
@@ -53,7 +54,7 @@
                                 <div class="col-xl-12 col-lg-12 col-6 d-xl-block d-lg-block d-flex align-items-center">
                                     <div class="logo">
                                         <a href="{{url('/')}}">
-                                            <img class="logo" src="favicon.svg" alt="logo" style="height: 35px;">
+                                            <img src="favicon.svg" alt="logo" style="height: 35px;">
                                         </a>
                                     </div>
                                 </div>
@@ -106,10 +107,11 @@
         </div>
         <!-- breadcrumb end -->
 
-        <!-- latest result begin -->
+
         <div class="latest-result">
             <div class="container">
                 <div class="row">
+                <!--
                     <div class="col-xl-6 col-lg-6">
                         <div class="single-match">
                             <div class="part-head">
@@ -179,20 +181,21 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> 
+                    -->
                     @foreach($partidos as $partido)
-                    <div class="col-xl-6 col-lg-6">
+                    <div class="col-xl-6 col-lg-6" id="div{{$partido->partido_id}}">
                         <div class="single-match">
                             <div class="part-head">
-                                <h5 class="match-title">{{$partido->local_id}}</h5>
+                                <h5 class="match-title">{{$partido->titulo}}</h5>
                             </div>
                             <div class="part-team">
+                                <input type="hidden" name="partido_id" id="partido{{$partido->partido_id}}" value="{{$partido->partido_id}}">
                                 <div class="single-team win-team">
                                     <div class="logo">
-                                        <span class="win">win</span>
-                                        <img src="assets/img/team-3.png" alt="">
+                                        <img src="{{$partido->logo_local}}" alt="">
                                     </div>
-                                    <span class="team-name">Khulna Tigers</span>
+                                    <span class="team-name">{{$partido->local}}</span>
                                 </div>
                                 <div class="match-details">
                                     <div class="match-time">
@@ -200,18 +203,21 @@
                                     </div>
                                     <div class="goal">
                                         <ul>
-                                            <li><input type="text" class=" textoPrediccion form-control" name="local"></li>
-                                            <li><input type="text" class=" textoPrediccion form-control" name="visita"></li>
+                                            <li><input type="text" class=" textoPrediccion form-control" id="res_local{{$partido->partido_id}}"></li>
+                                            <li><input type="text" class=" textoPrediccion form-control" id="res_visita{{$partido->partido_id}}"></li>
                                         </ul>
-                                        <span class="text">full time</span>
+                                        <span class="text">{{$partido->estado}}</span>
                                     </div>
                                 </div>
                                 <div class="single-team">
                                     <div class="logo">
-                                        <img src="assets/img/team-4.png" alt="">
+                                        <img src="{{$partido->logo_visita}}" alt="">
                                     </div>
-                                    <span class="team-name">Dhaka Platoon</span>
+                                    <span class="team-name">{{$partido->visita}}</span>
                                 </div>
+                            </div>
+                            <div class="col-md-12" style="text-align:center;padding: 0px;">
+                                <a onclick="enviar('{{$partido->partido_id}}')" class="btn btn-success" style="width:100%;color:white">Enviar pronóstico</a>
                             </div>
                         </div>
                     </div>
@@ -252,5 +258,27 @@
         <script src="assets/js/odometer.min.js"></script>
         <!-- main -->
         <script src="assets/js/main.js"></script>
+        <script type="text/javascript">
+            function enviar(id){
+                var reslocal = $("#res_local"+id).val();
+                var resvisita = $("#res_visita"+id).val();
+
+                $.ajax({
+                     type: "POST",
+                     url: "{{url('/')}}/pronostico",
+                     data: {partido_id : id, reslocal:reslocal, resvisita:resvisita},
+                     success: function(agente) {
+                    if(agente.ok){
+                        alert("Apuesta ingresada");
+                      } else {
+                        alert("Error de apuesta")
+                      }
+                    }, 
+                    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                      alert("Error de conexión al servidor: "+errorThrown);
+                     }   
+                });
+            }
+        </script>
     </body>
 </html>
