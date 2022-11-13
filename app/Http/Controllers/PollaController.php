@@ -189,10 +189,10 @@ class PollaController extends Controller
                                         })
                                 ->where('partidos.torneo_id', $torneo_id)
                                 ->select('local.nombre as local', 'visita.nombre as visita', 'partidos.id as partido_id', 'local.id as local_id', 'visita.id as visita_id', 'partidos.fecha', 'partidos.hora', 'partidos.fecha_completa',
-                                          'local.logo as logo_local', 'visita.logo as logo_visita', 'partidos.res_local', 'partidos.res_visita', 'estadopartidos.estado',
+                                          'local.logo as logo_local', 'visita.logo as logo_visita', 'partidos.res_local as res_local_real', 'partidos.res_visita as res_visita_real', 'estadopartidos.estado',
                                             'torneoequipolocal.grupo as grupo_local', 'torneoequipovisita.grupo as grupo_visita', 'partidos.tipopartido_id', 'tipopartidos.tipo as tipo_partido', 'partidos.estadopartido_id', 
-                                            'partidos.tipofinal_id',  'partidos.res_local_penales', 'partidos.res_visita_penales', 'tipofinal.tipo_final', 
-                                            db::raw('CASE WHEN partidos.tipopartido_id = 1 then CONCAT(tipopartidos.tipo, " - GRUPO ", torneoequipolocal.grupo) else tipopartidos.tipo end as titulo')
+                                            'partidos.tipofinal_id',  'partidos.res_local_penales', 'partidos.res_visita_penales', 'tipofinal.tipo_final', 'partidos.equipo_continua',
+                                            db::raw('CASE WHEN partidos.tipopartido_id = 1 then CONCAT(tipopartidos.tipo, " - GRUPO ", torneoequipolocal.grupo) else tipopartidos.tipo end as titulo'), 'partidos.ganador'
                                         )
                                 ->get();
 
@@ -207,6 +207,20 @@ class PollaController extends Controller
                     $aux2->pronostico = count($pronostico) > 0 ? 1 : 0 ;
                     $aux2->res_local = count($pronostico) > 0 ? $pronostico[0]->res_local : 0;
                     $aux2->res_visita = count($pronostico) > 0 ? $pronostico[0]->res_visita : 0;
+                    $aux2->puntos = count($pronostico) > 0 ? $pronostico[0]->puntos : 0;
+
+                    $resultado_apuesta = '';
+                    if(count($pronostico) > 0){
+
+                        if($pronostico[0]->puntos == 3)
+                            $resultado_apuesta = 'EXACTO';
+                        elseif($pronostico[0]->puntos == 1)
+                            $resultado_apuesta = 'PARCIAL';
+                        else
+                            $resultado_apuesta = 'FALLO';
+
+                    }
+                    $aux2->resultado_apuesta = $resultado_apuesta;
 
                 }
 
