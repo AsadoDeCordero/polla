@@ -548,4 +548,242 @@ class PollaController extends Controller
     {
         //
     }
+
+    public function tablaDemo() {
+        $data ='[
+  {
+    "id": "637050e8546293547d1263aa",
+    "nombre": "Hutchinson Dominguez",
+    "fallos": 1,
+    "parciales": 4,
+    "exactos": 16,
+    "puntos": 52
+  },
+  {
+    "id": "637050e8dad9896e44af03e0",
+    "nombre": "Shaw Ayers",
+    "fallos": 1,
+    "parciales": 8,
+    "exactos": 12,
+    "puntos": 44
+  },
+  {
+    "id": "637050e86402c44b8dd663ef",
+    "nombre": "Angelina Dotson",
+    "fallos": 4,
+    "parciales": 5,
+    "exactos": 12,
+    "puntos": 41
+  },
+  {
+    "id": "637050e8fbefba6cd3a117de",
+    "nombre": "Horn Beach",
+    "fallos": 1,
+    "parciales": 10,
+    "exactos": 10,
+    "puntos": 40
+  },
+  {
+    "id": "637050e802574fe95f445a3d",
+    "nombre": "Christensen Powers",
+    "fallos": 6,
+    "parciales": 4,
+    "exactos": 11,
+    "puntos": 37
+  },
+  {
+    "id": "637050e8654a2a66263d4953",
+    "nombre": "Gaspar Sepúlveda",
+    "fallos": 5,
+    "parciales": 6,
+    "exactos": 10,
+    "puntos": 36
+  },
+  {
+    "id": "637050e880760629d79ecef2",
+    "nombre": "Donna Sosa",
+    "fallos": 6,
+    "parciales": 8,
+    "exactos": 7,
+    "puntos": 29
+  },
+  {
+    "id": "637050e827aca3a24383816c",
+    "nombre": "Hess Norman",
+    "fallos": 2,
+    "parciales": 14,
+    "exactos": 5,
+    "puntos": 29
+  },
+  {
+    "id": "637050e8aeb55d8478fdbb57",
+    "nombre": "Rhonda Merrill",
+    "fallos": 11,
+    "parciales": 1,
+    "exactos": 9,
+    "puntos": 28
+  },
+  {
+    "id": "637050e844c95ddfbc59808c",
+    "nombre": "Johnnie Bradford",
+    "fallos": 8,
+    "parciales": 6,
+    "exactos": 7,
+    "puntos": 27
+  },
+  {
+    "id": "637050e827c6871bca75e2f4",
+    "nombre": "Mcdowell Frye",
+    "fallos": 1,
+    "parciales": 17,
+    "exactos": 3,
+    "puntos": 26
+  },
+  {
+    "id": "637050e8018b73a70dd1f054",
+    "nombre": "Shelley Golden",
+    "fallos": 10,
+    "parciales": 4,
+    "exactos": 7,
+    "puntos": 25
+  },
+  {
+    "id": "637050e81b643f2277125e46",
+    "nombre": "Carver Warren",
+    "fallos": 11,
+    "parciales": 3,
+    "exactos": 7,
+    "puntos": 24
+  },
+  {
+    "id": "637050e8d5c2ce724503c8d8",
+    "nombre": "Jennifer Mcdaniel",
+    "fallos": 15,
+    "parciales": 0,
+    "exactos": 6,
+    "puntos": 18
+  },
+  {
+    "id": "637050e8be814c140192ac9a",
+    "nombre": "Vera Landry",
+    "fallos": 12,
+    "parciales": 5,
+    "exactos": 4,
+    "puntos": 17
+  },
+  {
+    "id": "637050e8cb2c57bc64ddfeb4",
+    "nombre": "Bernice Massey",
+    "fallos": 15,
+    "parciales": 2,
+    "exactos": 4,
+    "puntos": 14
+  },
+  {
+    "id": "637050e8cfbd9ebfa93794ff",
+    "nombre": "Denise Walters",
+    "fallos": 13,
+    "parciales": 5,
+    "exactos": 3,
+    "puntos": 14
+  },
+  {
+    "id": "637050e899823a19ca309137",
+    "nombre": "Lucy Parks",
+    "fallos": 12,
+    "parciales": 7,
+    "exactos": 2,
+    "puntos": 13
+  },
+  {
+    "id": "637050e8537f5bc09b074817",
+    "nombre": "Cathleen Hodge",
+    "fallos": 10,
+    "parciales": 10,
+    "exactos": 1,
+    "puntos": 13
+  },
+  {
+    "id": "637050e80cf15761172be176",
+    "nombre": "Huber Ochoa",
+    "fallos": 14,
+    "parciales": 5,
+    "exactos": 2,
+    "puntos": 11
+  },
+  {
+    "id": "637050e8aac272d65eb31a36",
+    "nombre": "Landry Osborne",
+    "fallos": 17,
+    "parciales": 1,
+    "exactos": 3,
+    "puntos": 10
+  },
+  {
+    "id": "637050e8fe70536f57113ce0",
+    "nombre": "Bryan Gamble",
+    "fallos": 13,
+    "parciales": 7,
+    "exactos": 1,
+    "puntos": 10
+  },
+  {
+    "id": "637050e8fce937f38fac7140",
+    "nombre": "Petra Small",
+    "fallos": 14,
+    "parciales": 6,
+    "exactos": 1,
+    "puntos": 9
+  },
+  {
+    "id": "637050e873c1da2e000da49c",
+    "nombre": "Carroll Lindsay",
+    "fallos": 12,
+    "parciales": 9,
+    "exactos": 0,
+    "puntos": 9
+  },
+  {
+    "id": "637050e892951d6ce09bd8c1",
+    "nombre": "Adkins Nicholson",
+    "fallos": 15,
+    "parciales": 6,
+    "exactos": 0,
+    "puntos": 6
+  },
+  {
+    "id": "637050e826cfcedb6ffdbd71",
+    "nombre": "Nieves Stafford",
+    "fallos": 19,
+    "parciales": 1,
+    "exactos": 1,
+    "puntos": 4
+  },
+  {
+    "id": "637050e84243bbd395804861",
+    "nombre": "Angel Avila",
+    "fallos": 19,
+    "parciales": 1,
+    "exactos": 1,
+    "puntos": 4
+  },
+  {
+    "id": "637050e874f51b664d59416d",
+    "nombre": "Margery Knowles",
+    "fallos": 20,
+    "parciales": 0,
+    "exactos": 1,
+    "puntos": 3
+  },
+  {
+    "id": "637050e8ac7e50e1f909bd49",
+    "nombre": "Cline Barrera",
+    "fallos": 18,
+    "parciales": 3,
+    "exactos": 0,
+    "puntos": 3
+  }
+]';
+return (object)json_decode($data);
+    }
 }

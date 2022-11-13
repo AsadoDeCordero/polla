@@ -43,6 +43,9 @@
             .latest-result .single-match .part-team .single-team .logo span.win:after {
                 background-color: #259d2e!important;
             }
+            .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+              background-color: #d9ebff;
+            }
         </style>
     </head>
 
@@ -80,7 +83,7 @@
                                                 <a class="nav-link" href="{{url('/')}}/resultados">Resultados</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="promotions.html">Tabla de posiciones</a>
+                                                <a class="nav-link" href="{{url('/')}}/tabla">Tabla de posiciones</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{{url('/')}}/salir">Salir</a>
