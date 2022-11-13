@@ -36,7 +36,7 @@ class PollaController extends Controller
 
             }else{
 
-                return view('panel.partidos');
+               return redirect('/apuestas');
 
             }
 
@@ -241,7 +241,7 @@ class PollaController extends Controller
 
         Auth::loginUsingId($user_id);
 
-        return view('panel.partidos');
+        return redirect('/apuestas');
 
     }
 
