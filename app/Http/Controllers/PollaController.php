@@ -19,6 +19,15 @@ class PollaController extends Controller
     public function token(){ return csrf_token(); }
     public function logout(){ Auth::logout(); }
 
+    public function cron1(){
+
+        $this->actualizar_estado_partidos();
+        $this->actualizar_pronosticos();
+        $this->actualizar_tabla();
+        return "ok";
+
+    }
+
     public function home(){
 
         if (!Auth::check()){ //NO ESTOY LOGUEADO
