@@ -42,6 +42,12 @@ Route::post('/login','App\Http\Controllers\PollaController@login');
 
 Route::get('/getpartidos','App\Http\Controllers\PollaController@get_partidos');
 Route::get('/logout','App\Http\Controllers\PollaController@logout');
+Route::get('/gettabla','App\Http\Controllers\PollaController@get_tabla');
+
+Route::get('/actualizar/partidos','App\Http\Controllers\PollaController@actualizar_estado_partidos');
+Route::get('/actualizar/pronosticos','App\Http\Controllers\PollaController@actualizar_pronosticos');
+Route::get('/actualizar/tabla','App\Http\Controllers\PollaController@actualizar_tabla');
+
 
 //BORRAR
 Route::get('/a', function () {

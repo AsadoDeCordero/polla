@@ -39,10 +39,217 @@ class PollaController extends Controller
                return redirect('/apuestas');
 
             }
-
         }
 
-         
+    }
+
+    public function actualizar_estado_partidos(){
+
+        $partidos = DB::table('partidos')->wherein('estadopartido_id', [1,2,5])->get();
+
+        DB::beginTransaction();
+
+        try{
+
+            foreach($partidos as $aux){
+
+                $fecha_partido = $aux->fecha_completa;
+                $fecha_now = date('Y-m-d H:i:s'); 
+
+                $differenceInSeconds = strtotime($fecha_partido) - strtotime($fecha_now);
+
+                if($differenceInSeconds > 0){// EL PARTIDO AUN NO COMIENZA
+
+                    DB::table('partidos')->where('id', $aux->id)->update(array('estadopartido_id'=> 1));
+
+                }elseif($differenceInSeconds >= -6600){ //EL PARTIDO SE ESTA JUGANDO (110')
+
+                    DB::table('partidos')->where('id', $aux->id)->update(array('estadopartido_id'=> 2));
+
+
+                }else{ //EL PARTIDO YA SE JUGO
+
+                    DB::table('partidos')->where('id', $aux->id)->update(array('estadopartido_id'=> 5));
+
+                }
+
+            }
+
+            DB::commit();
+
+            return response()->json(['data' => 'Partidos actualizados con exito','ok'=>true]);
+
+        }catch(\Exception $e){
+
+            DB::rollBack();
+
+            return response()->json(['data'=>'', 'errors'=>'error: '.$e, 'mensaje' => 'Ha ocurrido un error, intente nuevamente más tarde.'], 409);
+            
+        }
+
+    }
+
+    public function actualizar_pronosticos(){
+
+        $partidos = DB::table('partidos')->wherein('estadopartido_id', [5])->get();
+
+        DB::beginTransaction();
+
+        try{
+
+            foreach($partidos as $aux){
+
+                if($aux->res_local > $aux->res_visita)
+                    $ganador_real = 'L';
+                elseif($aux->res_local < $aux->res_visita)
+                    $ganador_real = 'V';
+                else
+                    $ganador_real = 'E';
+
+                DB::table('partidos')->where('id', $aux->id)->update(array('ganador'=> $ganador_real, 'estadopartido_id' => 3));
+
+                $pronosticos = DB::table('pronosticos')->where('partido_id', $aux->id)->get();
+
+                foreach($pronosticos as $aux2){
+
+                    if($aux2->res_local > $aux2->res_visita)
+                        $ganador = 'L';
+                    elseif($aux2->res_local < $aux2->res_visita)
+                        $ganador = 'V';
+                    else
+                        $ganador = 'E';
+
+                    if($ganador_real == $ganador){ //LE ACHUNTO
+
+                        if($aux->res_local == $aux2->res_local && $aux->res_visita == $aux2->res_visita) //EXACTO!!!
+                            $puntos = 3;
+                        else
+                            $puntos = 1;
+
+                    }else{ // NO LE ACHUNTO
+
+                        $puntos = 0;
+
+                    }
+
+                    DB::table('pronosticos')->where('id', $aux2->id)->update(array('puntos'=> $puntos));
+
+                }
+
+            }
+
+
+
+            DB::commit();
+
+            return response()->json(['data' => 'Pronosticos actualizados con exito','ok'=>true]);
+
+        }catch(\Exception $e){
+
+            DB::rollBack();
+
+            return response()->json(['data'=>'', 'errors'=>'error: '.$e, 'mensaje' => 'Ha ocurrido un error, intente nuevamente más tarde.'], 409);
+            
+        }
+
+    }
+
+    public function actualizar_tabla(){
+
+        $pollas = DB::table('pollas')->get();
+
+        DB::beginTransaction();
+
+        try{
+
+            foreach($pollas as $aux){
+
+                //VER SI EXISTE LA TABLA
+                $tabla_id = DB::table('tablaposiciones')->where('polla_id', $aux->id)->value('id');
+
+                if($tabla_id == '') //NO EXISTE LA TABLA, HAY Q CREARLA 
+                    $tabla_id = DB::table('tablaposiciones')->insertGetId(array('polla_id' => $aux->id));
+
+                DB::table('detalletablaposiciones')->where('tablaposicion_id', $tabla_id)->delete();
+
+                DB::commit();
+
+                $usuarios_polla = DB::table('polla_user')->where('polla_id', $aux->id)->get();
+
+                foreach($usuarios_polla as $aux2){
+
+                     $string =  'insert into detalletablaposiciones (tablaposicion_id, user_id, fallidos, parciales, exactos, puntos)
+                                select '.$tabla_id.' as tabla_id, a.*, b.fallidos, c.parciales, d.exactos, e.puntos
+                                from
+                                (
+                                select user_id
+                                from polla_user
+                                where polla_id = '.$aux->id.' and user_id = '.$aux2->user_id.'
+                                ) a
+                                left join
+                                (
+                                select user_id, puntos, count(*) as fallidos
+                                from pronosticos
+                                where polla_id = '.$aux->id.' and user_id = '.$aux2->user_id.'
+                                and puntos = 0
+                                group by user_id, puntos
+                                ) b on a.user_id = b.user_id
+                                left join
+                                (
+                                select user_id, puntos, count(*) as parciales
+                                from pronosticos
+                                where polla_id = '.$aux->id.' and user_id = '.$aux2->user_id.'
+                                and puntos = 1
+                                group by user_id, puntos
+                                ) c on a.user_id = c.user_id
+                                left join
+                                (
+                                select user_id, puntos, count(*) as exactos
+                                from pronosticos
+                                where polla_id = '.$aux->id.' and user_id = '.$aux2->user_id.'
+                                and puntos = 3
+                                group by user_id, puntos
+                                ) d on a.user_id = d.user_id
+                                left join
+                                (
+                                select user_id, sum(puntos) as puntos
+                                from pronosticos
+                                where polla_id = '.$aux->id.' and user_id = '.$aux2->user_id.'
+                                group by user_id
+                                ) e on a.user_id = e.user_id;';
+
+                    DB::statement($string);
+
+                }
+
+            }
+
+            DB::commit();
+
+            return response()->json(['data' => 'Pronosticos actualizados con exito','ok'=>true]);
+
+        }catch(\Exception $e){
+
+            DB::rollBack();
+
+            return response()->json(['data'=>'', 'errors'=>'error: '.$e, 'mensaje' => 'Ha ocurrido un error, intente nuevamente más tarde.'], 409);
+            
+        }
+
+    }
+
+    public function get_tabla(){
+
+        if (!Auth::check())
+            return response()->json(['data' => 'Usuario no esta logueado', 'ok'=>false, 'mensaje' => 'No ha iniciado sesión']);
+
+        $tabla = DB::table('tablaposiciones')
+                            ->join('detalletablaposiciones', 'detalletablaposiciones.tablaposicion_id', '=', 'tablaposiciones.id')
+                            ->join('users', 'users.id', '=', 'detalletablaposiciones.user_id')
+                            ->where('polla_id', Session::get('polla_id'))
+                            ->get();
+
+        return $tabla;
 
     }
 
