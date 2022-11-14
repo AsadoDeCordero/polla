@@ -21,7 +21,8 @@
             <div class="container">
                 <div class="row">
                     @foreach($partidos as $partido)
-                    @if($partido->estadopartido_id==3)
+                    <!--if($partido->estadopartido_id==3)-->
+                    @if(true)
                     <div class="col-xl-6 col-lg-6" id="div{{$partido->partido_id}}">
                         <div class="single-match">
                             <div class="part-head">
@@ -69,7 +70,17 @@
                                 class="btn btn-success"
                                 @endif
                                 style="cursor: default;width:100%;color:white"
-                                > Tu apuesta <img src="{{$partido->logo_local}}" style="height: 15px;"> {{$partido->res_local}} - {{$partido->res_visita}} <img src="{{$partido->logo_visita}}" style="height: 15px;"></a>
+                                >
+                                @if($partido->pronostico==0)
+                                    No has realizado apuesta!!!
+                                @else
+                                Tu apuesta: 
+                                <img src="{{$partido->logo_local}}" style="height: 15px;"> 
+                                    {{$partido->res_local}} - {{$partido->res_visita}} 
+                                
+                                <img src="{{$partido->logo_visita}}" style="height: 15px;">
+                                @endif
+                                </a>
                             </div>
                         </div>
                     </div>
