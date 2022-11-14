@@ -115,7 +115,7 @@ class PollaController extends Controller
                 else
                     $ganador_real = 'E';
 
-                DB::table('partidos')->where('id', $aux->id)->update(array('ganador'=> $ganador_real, 'estadopartido_id' => 3));
+                DB::table('partidos')->where('id', $aux->id)->update(array('ganador'=> $ganador_real));
 
                 $pronosticos = DB::table('pronosticos')->where('partido_id', $aux->id)->get();
 
@@ -145,9 +145,10 @@ class PollaController extends Controller
 
                 }
 
+                if($aux->resultado_actualizado == 1)
+                    DB::table('partidos')->where('id', $aux->id)->update(array('estadopartido_id' => 3));
+
             }
-
-
 
             DB::commit();
 

@@ -77,6 +77,9 @@
                                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                         <ul class="navbar-nav ml-auto">
                                             <li class="nav-item">
+                                                <a class="nav-link">Hola {{Auth::user()->nombre}}</a>
+                                            </li>
+                                            <li class="nav-item">
                                                 <a class="nav-link" href="{{url('/')}}/apuestas">Apuestas</a>
                                             </li>
                                             <li class="nav-item">
