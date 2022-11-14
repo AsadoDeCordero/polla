@@ -1,5 +1,6 @@
 <?php 
-    $participantes = App\Http\Controllers\PollaController::tablaDemo();
+    $controller = new App\Http\Controllers\PollaController();
+    $participantes = $controller->get_tabla();
     //dd($participantes);
 ?>
 @extends('panel.template')
@@ -33,9 +34,9 @@
                             </thead>
                             <tbody>
                                 @foreach($participantes as $participante)
-                                <tr @if($participante->id =='637050e8654a2a66263d4953') style="background:#c0ffab" @endif>
+                                <tr @if($participante->id ==Auth::user()->id) style="background:#c0ffab" @endif>
                                     <td>{{$participante->nombre}}</td>
-                                    <td style="text-align:center">{{$participante->fallos}}</td>
+                                    <td style="text-align:center">{{$participante->fallidos}}</td>
                                     <td style="text-align:center">{{$participante->parciales}}</td>
                                     <td style="text-align:center">{{$participante->exactos}}</td>
                                     <td style="text-align:center">{{$participante->puntos}}</td>

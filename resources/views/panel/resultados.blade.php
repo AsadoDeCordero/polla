@@ -1,5 +1,6 @@
 <?php 
-    $partidos = App\Http\Controllers\PollaController::get_partidos()[0]->partidos;
+    $controller = new App\Http\Controllers\PollaController();
+    $partidos = $controller->get_partidos()[0]->partidos;
     //dd($partidos);
 ?>
 @extends('panel.template')
