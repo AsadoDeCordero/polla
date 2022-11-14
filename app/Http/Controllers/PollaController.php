@@ -410,6 +410,7 @@ class PollaController extends Controller
                                             'partidos.tipofinal_id',  'partidos.res_local_penales', 'partidos.res_visita_penales', 'tipofinal.tipo_final', 'partidos.equipo_continua',
                                             db::raw('CASE WHEN partidos.tipopartido_id = 1 then CONCAT(tipopartidos.tipo, " - GRUPO ", torneoequipolocal.grupo) else tipopartidos.tipo end as titulo'), 'partidos.ganador'
                                         )
+                                ->orderby('partidos.fecha_completa', 'desc')
                                 ->get();
 
                 foreach($partidos as $aux2){
