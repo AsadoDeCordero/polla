@@ -16,6 +16,7 @@ use Session;
 class PollaController extends Controller
 {
 
+    public function hora(){ return date('Y-m-d H:i:s'); }
     public function token(){ return csrf_token(); }
     public function logout(){ Auth::logout(); }
 

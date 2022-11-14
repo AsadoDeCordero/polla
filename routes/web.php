@@ -48,6 +48,7 @@ Route::get('/actualizar/partidos','App\Http\Controllers\PollaController@actualiz
 Route::get('/actualizar/pronosticos','App\Http\Controllers\PollaController@actualizar_pronosticos');
 Route::get('/actualizar/tabla','App\Http\Controllers\PollaController@actualizar_tabla');
 
+Route::get('/hora','App\Http\Controllers\PollaController@hora');
 Route::get('/cron1','App\Http\Controllers\PollaController@cron1');
 
 
