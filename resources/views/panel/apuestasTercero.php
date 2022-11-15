@@ -1,7 +1,7 @@
 <?php 
     $controller = new App\Http\Controllers\PollaController($id);
     $partidos = $controller->get_partidos()[0]->partidos;
-    $nombre= new App\Models\PollaController();
+    $nombre= new App\Models\User();
     $nombre=$nombre->nombre;
     //dd($partidos);
 ?>
