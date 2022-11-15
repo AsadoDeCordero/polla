@@ -258,6 +258,7 @@ class PollaController extends Controller
                             ->join('detalletablaposiciones', 'detalletablaposiciones.tablaposicion_id', '=', 'tablaposiciones.id')
                             ->join('users', 'users.id', '=', 'detalletablaposiciones.user_id')
                             ->where('polla_id', Session::get('polla_id'))
+
                             ->get();
 
         return $tabla;
@@ -280,7 +281,7 @@ class PollaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['data' => $validator->errors(),'ok'=>false, 'mensaje' => 'Error de validación']);
+            return response()->json(['data' => $validator->errors(),'ok'=>false, 'mensaje' => 'Debe ingresar solo numeros para ingresar su pronostico']);
             return back()->withErrors($validator)->withInput();
         }
 
