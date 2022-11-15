@@ -1,7 +1,8 @@
 <?php 
     $controller = new App\Http\Controllers\PollaController($id);
     $partidos = $controller->get_partidos()[0]->partidos;
-    $nombre= User::find($id)->nombre;
+    $nombre= new App\Models\PollaController();
+    $nombre=$nombre->nombre;
     //dd($partidos);
 ?>
 @extends('panel.template')
