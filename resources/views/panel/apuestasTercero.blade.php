@@ -2,7 +2,8 @@
     $controller = new App\Http\Controllers\PollaController($id);
     $partidos = $controller->get_partidos()[0]->partidos;
     $nombre= new App\Models\User();
-    $nombre=$nombre->nombre;
+    $nombre=$nombre->find($id)->nombre;
+    //$nombre="juanito";
     //dd($partidos);
 ?>
 @extends('panel.template')
@@ -13,7 +14,7 @@
                 <div class="row">
                     <div class="col-xl-7 col-lg-7">
                         <div class="breadcrumb-content">
-                            <h2>Resultados</h2>
+                            <h2>Resultados de {{$nombre}}</h2>
                         </div>
                     </div>
                 </div>
@@ -73,7 +74,7 @@
                                 style="cursor: default;width:100%;color:white"
                                 >
                                 @if($partido->pronostico==0)
-                                    No ha realizado apuesta!!!
+                                    {{$nombre}} no ha realizado apuesta!!!
                                 @else
                                 Apuesta de {{$nombre}}: 
                                 <img src="{{$partido->logo_local}}" style="height: 15px;"> 
