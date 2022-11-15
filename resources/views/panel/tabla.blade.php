@@ -27,9 +27,9 @@
                         <table class="table table-striped table-bordered table-hover">
                             <thead class="thead-dark">
                                 <th>Nombre</th>
-                                <th style="width:1%">Fallos</th>
-                                <th style="width:1%">Parciales</th>
-                                <th style="width:1%">Exactos</th>
+                                <th style="width:1%;background: #ff5722;">X</th>
+                                <th style="width:1%;background:#ffeb3b">✓</th>
+                                <th style="width:1%;background: #4caf50;">✓</th>
                                 <th style="width:1%">Puntaje</th>
                             </thead>
                             <tbody>

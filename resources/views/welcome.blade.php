@@ -38,6 +38,11 @@
                      <form id="login-form" class="form" action="{{url('/')}}/login" method="post">
                         {{csrf_field()}}
                         <h3 class="text-center text-info" style="color:black!important">Bienvenido a {{config('app.name')}}</h3>
+                        @if(isset($error))
+                        <div class="alert alert-danger" role="alert">
+                          This is a warning alert—check it out!
+                        </div>
+                        @endif
                         <div class="form-group">
                            <label for="codigo" class="text-info" style="color:black!important">Código:</label><br>
                            <input type="text" name="codigo" id="codigo" class="form-control">
