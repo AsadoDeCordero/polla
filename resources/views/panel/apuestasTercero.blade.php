@@ -1,6 +1,6 @@
 <?php 
-    $controller = new App\Http\Controllers\PollaController($id);
-    $partidos = $controller->get_partidos()[0]->partidos;
+    $controller = new App\Http\Controllers\PollaController();
+    $partidos = $controller->get_partidos($id)[0]->partidos;
     $nombre= new App\Models\User();
     $nombre=$nombre->find($id)->nombre;
     //$nombre="juanito";
@@ -71,7 +71,7 @@
                                 @elseif($partido->puntos==3)
                                 class="btn btn-success"
                                 @endif
-                                style="cursor: default;width:100%;color:white"
+                                style="cursor: default;width:100%;color:white; @if($partido->estadopartido_id==2) background:#818181;border-color:#818181 @endif"
                                 >
                                 @if($partido->pronostico==0)
                                     {{$nombre}} no ha realizado apuesta!!!
