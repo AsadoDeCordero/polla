@@ -1,7 +1,7 @@
 <?php 
     $controller = new App\Http\Controllers\PollaController();
-    $participantes = $controller->tablaDemo();
-    //$participantes = $controller->get_tabla();
+    //$participantes = $controller->tablaDemo();
+    $participantes = $controller->get_tabla();
     //dd($participantes);
 ?>
 @extends('panel.template')
