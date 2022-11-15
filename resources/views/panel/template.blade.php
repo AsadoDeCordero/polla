@@ -7,25 +7,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> {{config('app.name')}}</title>
         <!-- favicon -->
-        <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+        <link rel="shortcut icon" href="{{url('/')}}/favicon.svg" type="image/x-icon">
         <!-- bootstrap -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{url('/')}}/assets/css/bootstrap.min.css">
         <!-- fontawesome icon  -->
-        <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+        <link rel="stylesheet" href="{{url('/')}}/assets/css/fontawesome.min.css">
         <!-- flaticon css -->
-        <link rel="stylesheet" href="assets/fonts/flaticon.css">
+        <link rel="stylesheet" href="{{url('/')}}/assets/fonts/flaticon.css">
         <!-- animate.css -->
-        <link rel="stylesheet" href="assets/css/animate.css">
+        <link rel="stylesheet" href="{{url('/')}}/assets/css/animate.css">
         <!-- Owl Carousel -->
-        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="{{url('/')}}/assets/css/owl.carousel.min.css">
         <!-- magnific popup -->
-        <link rel="stylesheet" href="assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="assets/css/odometer.min.css">
+        <link rel="stylesheet" href="{{url('/')}}/assets/css/magnific-popup.css">
+        <link rel="stylesheet" href="{{url('/')}}/assets/css/odometer.min.css">
         <!-- stylesheet -->
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="{{url('/')}}/assets/css/style.css">
         <!-- responsive -->
-        <link rel="stylesheet" href="assets/css/responsive.css">
-        <link rel="stylesheet" href="assets/css/latest-result-responsive.css">
+        <link rel="stylesheet" href="{{url('/')}}/assets/css/responsive.css">
+        <link rel="stylesheet" href="{{url('/')}}/assets/css/latest-result-responsive.css">
         <style type="text/css">
             .textoPrediccion{
                 color: black!important;
@@ -117,24 +117,24 @@
         <!-- notes end -->
         
         <!-- jquery -->
-        <!-- <script src="assets/js/jquery.js"></script> -->
-        <script src="assets/js/jquery-3.4.1.min.js"></script>
+        <!-- <script src="{{url('/')}}/assets/js/jquery.js"></script> -->
+        <script src="{{url('/')}}/assets/js/jquery-3.4.1.min.js"></script>
         <!-- bootstrap -->
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="{{url('/')}}/assets/js/bootstrap.min.js"></script>
         <!-- owl carousel -->
-        <script src="assets/js/owl.carousel.js"></script>
+        <script src="{{url('/')}}/assets/js/owl.carousel.js"></script>
         <!-- magnific popup -->
-        <script src="assets/js/jquery.magnific-popup.js"></script>
+        <script src="{{url('/')}}/assets/js/jquery.magnific-popup.js"></script>
         <!-- filterizr js -->
-        <script src="assets/js/jquery.filterizr.min.js"></script>
+        <script src="{{url('/')}}/assets/js/jquery.filterizr.min.js"></script>
         <!-- wow js-->
-        <script src="assets/js/wow.min.js"></script>
+        <script src="{{url('/')}}/assets/js/wow.min.js"></script>
         <!-- clock js -->
-        <script src="assets/js/clock.min.js"></script>
-        <script src="assets/js/jquery.appear.min.js"></script>
-        <script src="assets/js/odometer.min.js"></script>
+        <script src="{{url('/')}}/assets/js/clock.min.js"></script>
+        <script src="{{url('/')}}/assets/js/jquery.appear.min.js"></script>
+        <script src="{{url('/')}}/assets/js/odometer.min.js"></script>
         <!-- main -->
-        <script src="assets/js/main.js"></script>
+        <script src="{{url('/')}}/assets/js/main.js"></script>
         <script type="text/javascript">
             function enviar(id){
                 var reslocal = $("#res_local"+id).val();
