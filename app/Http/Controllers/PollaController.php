@@ -457,7 +457,9 @@ class PollaController extends Controller
         $existe_codigo = DB::table('polla_user')->where('codigouser', $request->codigo)->count();
         
         if($existe_codigo == 0)
-            return response()->json(['data' => 'No existe el codigo', 'ok'=>false]);
+            return view('welcome')->with('error','El còdigo ingresado no existe');
+
+        //return response()->json(['data' => 'No existe el codigo', 'ok'=>false]);
 
         $codigo = $this->desencriptar($request->codigo);
 
