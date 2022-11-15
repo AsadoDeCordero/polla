@@ -371,13 +371,16 @@ class PollaController extends Controller
 
     }
 
-    public function get_partidos(){
+    public function get_partidos($user_id = NULL){
 
         if (!Auth::check())
             return response()->json(['data' => 'Usuario no esta logueado', 'ok'=>false]);
 
+        if($user_id == NULL)
+            $user_id = Auth::user()->id;
+
         $polla_id = Session::get('polla_id');
-        $num_pollas = DB::table('polla_user')->where('user_id', Auth::user()->id)->count();
+        $num_pollas = DB::table('polla_user')->where('user_id', $user_id)->count();
 
         if($num_pollas == 0){
 
@@ -385,7 +388,7 @@ class PollaController extends Controller
 
         }else{
 
-            $pollas = DB::table('polla_user')->where('user_id', Auth::user()->id)->where('polla_id', $polla_id)->get();
+            $pollas = DB::table('polla_user')->where('user_id', $user_id)->where('polla_id', $polla_id)->get();
 
             foreach($pollas as $aux){
 
@@ -418,7 +421,7 @@ class PollaController extends Controller
                 foreach($partidos as $aux2){
 
                     $pronostico = DB::table('pronosticos')
-                        ->where('user_id', Auth::user()->id)
+                        ->where('user_id', $user_id)
                         ->where('partido_id', $aux2->partido_id)
                         ->where('polla_id', $polla_id)
                         ->get();
