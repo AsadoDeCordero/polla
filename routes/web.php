@@ -25,6 +25,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/tabla', function () {
         return view('panel.tabla');
     });
+    Route::get('/apuestas/{id}', function ($id) {
+        return view('panel.apuestasTercero')->with('id',$id);
+    });
      Route::get('/salir', function () {
         Auth::logout();
         return redirect(route('home'));
