@@ -258,7 +258,7 @@ class PollaController extends Controller
                             ->join('detalletablaposiciones', 'detalletablaposiciones.tablaposicion_id', '=', 'tablaposiciones.id')
                             ->join('users', 'users.id', '=', 'detalletablaposiciones.user_id')
                             ->where('polla_id', Session::get('polla_id'))
-
+                            ->groupby('detalletablaposiciones.puntos', 'desc')
                             ->get();
 
         return $tabla;
