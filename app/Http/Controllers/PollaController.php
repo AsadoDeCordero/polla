@@ -201,31 +201,39 @@ class PollaController extends Controller
                                 (
                                 select user_id, puntos, count(*) as fallidos
                                 from pronosticos
+                                left join partidos on pronosticos.partido_id = partidos.id
                                 where polla_id = '.$aux->id.' and user_id = '.$aux2->user_id.'
                                 and puntos = 0
+                                and estadopartido_id = 3
                                 group by user_id, puntos
                                 ) b on a.user_id = b.user_id
                                 left join
                                 (
                                 select user_id, puntos, count(*) as parciales
                                 from pronosticos
+                                left join partidos on pronosticos.partido_id = partidos.id
                                 where polla_id = '.$aux->id.' and user_id = '.$aux2->user_id.'
                                 and puntos = 1
+                                and estadopartido_id = 3
                                 group by user_id, puntos
                                 ) c on a.user_id = c.user_id
                                 left join
                                 (
                                 select user_id, puntos, count(*) as exactos
                                 from pronosticos
+                                left join partidos on pronosticos.partido_id = partidos.id
                                 where polla_id = '.$aux->id.' and user_id = '.$aux2->user_id.'
                                 and puntos = 3
+                                and estadopartido_id = 3
                                 group by user_id, puntos
                                 ) d on a.user_id = d.user_id
                                 left join
                                 (
                                 select user_id, sum(puntos) as puntos
                                 from pronosticos
+                                left join partidos on pronosticos.partido_id = partidos.id
                                 where polla_id = '.$aux->id.' and user_id = '.$aux2->user_id.'
+                                and estadopartido_id = 3
                                 group by user_id
                                 ) e on a.user_id = e.user_id;';
 
