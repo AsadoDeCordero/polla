@@ -116,7 +116,9 @@
                             </button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        <?php
+                                DB::table('pollas')->where('id', Session::get('polla_id'))->value('descripcion');
+                        ?>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -135,7 +137,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-10 col-lg-10">
-                        {{config('app.name')}} tiene todos los derechos reservados y la wea.
+                        Plataforma desarrollada por <a href="https://www.spielup.cl" style="color:white;">Spielup Spa. </a>Todos los derechos reservados.
                     </div>
                 </div>
             </div>
