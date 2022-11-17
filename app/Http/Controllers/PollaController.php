@@ -467,17 +467,18 @@ class PollaController extends Controller
     public function login(Request $request){
 
         $existe_codigo = DB::table('polla_user')->where('codigouser', $request->codigo)->count();
-        
+        //return $existe_codigo;
         if($existe_codigo == 0)
-            return view('welcome')->with('error','El còdigo ingresado no existe');
+            return view('welcome')->with('error','El código ingresado no existe');
 
         //return response()->json(['data' => 'No existe el codigo', 'ok'=>false]);
 
         $codigo = $this->desencriptar($request->codigo);
 
-        //return $codigo;
-
         $porciones = explode(".", $codigo);
+
+        if(count($porciones) != 2)
+            return view('welcome')->with('error','El código ingresado no existe');
         
         $polla_id = $porciones[0];
         $user_id = $porciones[1];
