@@ -37,10 +37,10 @@
                                 @foreach($participantes as $participante)
                                 <tr @if($participante->id ==Auth::user()->id) style="background:#c0ffab" @else style="cursor:pointer" onclick="location.href='{{url('/')}}/apuestas/{{$participante->id}}'" @endif >
                                     <td>{{$participante->nombre}}</td>
-                                    <td style="text-align:center">{{$participante->fallidos}}</td>
-                                    <td style="text-align:center">{{$participante->parciales}}</td>
-                                    <td style="text-align:center">{{$participante->exactos}}</td>
-                                    <td style="text-align:center">{{$participante->puntos}}</td>
+                                    <td style="text-align:center"><?php if($participante->fallidos=="") echo '0'; else echo $participante->fallidos; ?></td>
+                                    <td style="text-align:center"><?php if($participante->parciales=="") echo '0'; else echo $participante->parciales; ?></td>
+                                    <td style="text-align:center"><?php if($participante->exactos=="") echo '0'; else echo $participante->exactos; ?></td>
+                                    <td style="text-align:center"><?php if($participante->puntos=="") echo '0'; else echo $participante->puntos; ?></td>
                                 </tr>
                                 @endforeach
                             </tbody>
