@@ -80,6 +80,9 @@
                                                 <a class="nav-link">Hola {{Auth::user()->nombre}}</a>
                                             </li>
                                             <li class="nav-item">
+                                                <a class="nav-link" id="modal-37323" href="#modal-container-37323" role="button" class="btn" data-toggle="modal">Reglas</a>
+                                            </li>
+                                            <li class="nav-item">
                                                 <a class="nav-link" href="{{url('/')}}/apuestas">Apuestas</a>
                                             </li>
                                             <li class="nav-item">
@@ -101,7 +104,30 @@
             </div>
         </div>
         <!-- header end -->
-
+        <div class="modal fade" id="modal-container-37323" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">
+                            Reglas
+                        </h5> 
+                        <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+                    
+            </div>
+                
+        </div>
         @yield('body')
 
         <!-- notes begin -->
