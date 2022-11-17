@@ -116,9 +116,13 @@
                             </button>
                     </div>
                     <div class="modal-body">
+
+                         {!! DB::table('pollas')->where('id', Session::get('polla_id'))->value('descripcion'); !!}
+
                         <?php
-                                DB::table('pollas')->where('id', Session::get('polla_id'))->value('descripcion');
+                               // echo DB::table('pollas')->where('id', Session::get('polla_id'))->value('descripcion');
                         ?>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
