@@ -3,6 +3,7 @@
     $partidos = $controller->get_partidos($id)[0]->partidos;
     $nombre= new App\Models\User();
     $nombre=$nombre->find($id)->nombre;
+    //$partidos = array_reverse($partidos);
     //$nombre="juanito";
     //dd($partidos);
 ?>
@@ -23,7 +24,7 @@
         <div class="latest-result">
             <div class="container">
                 <div class="row">
-                    @foreach($partidos as $partido)
+                    @foreach($partidos->reverse() as $partido)
                     @if($partido->estadopartido_id!=1)
                     <div class="col-xl-6 col-lg-6" id="div{{$partido->partido_id}}">
                         <div class="single-match">
