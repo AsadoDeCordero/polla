@@ -1,6 +1,17 @@
 <?php 
     $controller = new App\Http\Controllers\PollaController();
-    $partidos = $controller->get_partidos()[0]->partidos;
+    $todos = $controller -> get_partidos()[0]->partidos;
+    $terminados = [];
+    $noTerminados = [];
+    $partidos = [];
+    foreach($todos as $partido) {
+      if($partido->estadopartido_id==3)
+      array_push($terminados,$partido);
+      else
+      array_push($noTerminados,$partido);
+    }
+    $terminados = array_reverse($terminados);
+    $partidos = array_merge($terminados,$noTerminados);
     //dd($partidos);
 ?>
 @extends('panel.template')
@@ -62,7 +73,9 @@
                             </div>
                             <div class="col-md-12" style="text-align:center;padding: 0px;">
                                 <a id="boton_partido->partido_id" onclick="return null;" 
-                                @if($partido->puntos==0)
+                                @if($partido->estadopartido_id==1)
+                                class="btn btn-secondary"
+                                @elseif($partido->puntos==0)
                                 class="btn btn-danger" 
                                 @elseif($partido->puntos==1)
                                 class="btn btn-warning"

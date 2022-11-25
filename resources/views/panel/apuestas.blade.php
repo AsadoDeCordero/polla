@@ -1,6 +1,16 @@
 <?php 
-    $controller = new App\Http\Controllers\PollaController();
-    $partidos = $controller -> get_partidos()[0]->partidos;
+$controller = new App\Http\Controllers\PollaController();
+    $todos = $controller -> get_partidos()[0]->partidos;
+    $terminados = [];
+    $noTerminados = [];
+    $partidos = [];
+    foreach($todos as $partido) {
+      if($partido->estadopartido_id==3)
+      array_push($terminados,$partido);
+      else
+      array_push($noTerminados,$partido);
+    }
+    $partidos = array_merge($noTerminados,$terminados);
     //dd($partidos);
 ?>
 @extends('panel.template')

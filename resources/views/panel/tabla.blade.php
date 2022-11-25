@@ -27,6 +27,7 @@
                     <div class="col-md-12 table-responsive">
                         <table class="table table-striped table-bordered table-hover">
                             <thead class="thead-dark">
+                                <th style="width:1%">#</th>
                                 <th>Nombre</th>
                                 <th style="width:1%;background: #ff5722;">X</th>
                                 <th style="width:1%;background:#ffeb3b">✓</th>
@@ -34,14 +35,17 @@
                                 <th style="width:1%">Puntaje</th>
                             </thead>
                             <tbody>
+                              <?php $i=1; ?>
                                 @foreach($participantes as $participante)
                                 <tr @if($participante->id ==Auth::user()->id) style="background:#c0ffab" @else style="cursor:pointer" onclick="location.href='{{url('/')}}/apuestas/{{$participante->id}}'" @endif >
+                                    <td>{{$i}}</td>
                                     <td>{{$participante->nombre}}</td>
                                     <td style="text-align:center"><?php if($participante->fallidos=="") echo '0'; else echo $participante->fallidos; ?></td>
                                     <td style="text-align:center"><?php if($participante->parciales=="") echo '0'; else echo $participante->parciales; ?></td>
                                     <td style="text-align:center"><?php if($participante->exactos=="") echo '0'; else echo $participante->exactos; ?></td>
                                     <td style="text-align:center"><?php if($participante->puntos=="") echo '0'; else echo $participante->puntos; ?></td>
                                 </tr>
+                                <?php $i++; ?>
                                 @endforeach
                             </tbody>
                         </table>
