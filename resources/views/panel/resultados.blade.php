@@ -55,8 +55,13 @@
                                     </div>
                                     <div class="goal">
                                         <ul>
+                                          @if($partido->ganador=='E' && $partido->res_local_penales != null)
+                                            <li>{{$partido->res_local_real}} <sup>{{$partido->res_local_penales}}</sup></li>
+                                            <li>{{$partido->res_visita_real}} <sup>{{$partido->res_visita_penales}}</sup></li>
+                                          @else
                                             <li>{{$partido->res_local_real}}</li>
                                             <li>{{$partido->res_visita_real}}</li>
+                                          @endif
                                         </ul>
                                         <span class="text">{{$partido->estado}}</span>
                                     </div>
