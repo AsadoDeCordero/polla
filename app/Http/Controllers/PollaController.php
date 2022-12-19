@@ -267,6 +267,7 @@ class PollaController extends Controller
                             ->join('users', 'users.id', '=', 'detalletablaposiciones.user_id')
                             ->where('polla_id', Session::get('polla_id'))
                             ->orderby('detalletablaposiciones.puntos', 'desc')
+                            ->orderby(db::raw('(`detalletablaposiciones`.`parciales` + `detalletablaposiciones`.`exactos`)'), 'desc')
                             ->get();
 
         return $tabla;
